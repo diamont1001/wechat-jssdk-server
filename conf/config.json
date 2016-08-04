@@ -1,0 +1,37 @@
+{
+  "redis": [{
+    "host": "10.20.33.54",
+    "port": 6379,
+    "password": ""
+  }],
+
+  "log4js": {
+    "level": "TRACE"
+  },
+
+  "gzip": {
+    "threshold": 1024
+  },
+
+  "staticCache": {
+    "maxAge": 2592000
+  },
+
+  "locals": {
+    "publicPath": "",
+    "router": {
+      "wx": {
+        "service": "/service",
+        "config": "/config",
+        "auth": "/auth",
+        "auth2": "/auth2"
+      }
+    }
+  },
+
+  "wechat": {
+    "appId": "wx852e58f4a7efff3f",
+    "secret": "59b6b5479fb421aeb0511bfc81ee3787",
+    "token": "chenjr"
+  }
+}

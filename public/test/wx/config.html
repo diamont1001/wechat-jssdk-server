@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>weixin-test</title>
+    <script type="text/javascript" src="./js/lib/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="./js/lib/jquery.min.js"></script>
+</head>
+<body>
+    <img src="test.jpg" />
+    <a href="oauth.html">oauth测试</a>
+    <script>
+    var appId = '';
+    function test(obj){
+        console.log(obj);
+    }
+    //跨域demo
+    $.ajax({
+        url: '/wx/config?url=' + window.location.href,
+        type: 'get',
+        dataType: 'jsonp',
+        jsonp: 'callback',
+        jsonpCallback: 'test',
+        success: function(rst){
+            wxConfig(rst.data);
+        },
+        error: function(){
+            alert('error');
+        }
+    });
+
+    //微信分享demo
+    function wxConfig(data){
+        alert(JSON.stringify(data));
+        wx.config({ //微信js接口参数注入
+            debug: true,
+            appId: data.appId,
+            nonceStr: data.nonceStr,
+            timestamp: data.timestamp,
+            signature: data.signature,
+            jsApiList: ['hideOptionMenu', 'showOptionMenu', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'sendAppMessage']
+        });
+    }
+
+    wx.ready(function(){
+//        alert('ready');
+//        wx.hideOptionMenu();
+
+        // 获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareTimeline({
+            title: '分享到朋友圈-标题', // 分享标题
+            link:"http://m.pp.cn",
+            imgUrl: "http://a.img.pp.cn/upload_files/2016/01/20/lADOBrTZRszIzMg_200_200.jpg" // 分享图标
+        });
+        // 获取“分享给朋友”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareAppMessage({
+            title: '分享给朋友-标题', // 分享标题
+            desc: "分享给朋友-描述", // 分享描述
+            link:"http://m.pp.cn",
+            imgUrl: "http://a.img.pp.cn/upload_files/2016/01/20/lADOBrTZRszIzMg_200_200.jpg", // 分享图标
+            type: 'link' // 分享类型,music、video或link，不填默认为link
+        });
+    });
+
+    wx.error(function(res){
+        console.log('sign-error');
+    });
+    </script>
+</body>
+</html>

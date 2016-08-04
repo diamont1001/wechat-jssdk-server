@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>oauth2-test</title>
+</head>
+<body>
+    <script>
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = (window.location.search || window.location.hash).substr(1).match(reg);
+            if (r != null) return decodeURIComponent(r[2]);
+            return "";
+        }
+
+       var host = document.location.origin;
+
+        var START_URL = host + '/wx/auth?dest=' + encodeURIComponent(window.location.href) + '&scope=snsapi_base';
+        var userinfo = getQueryString('userinfo');
+        if(userinfo){
+            alert(userinfo);
+        }else{
+            window.location.href = START_URL;
+        }
+    </script>
+</body>
+</html>
